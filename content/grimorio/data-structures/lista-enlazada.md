@@ -37,7 +37,7 @@ La imagen muestra una lista de tres nodos enlazados. Cada nodo está dividido en
 - `eliminar`: $O(n)$
 - `buscar`: $O(n)$
 - Espacio: $O(n)$
-
+> **Nota:** La complejidad de inserciones al inicio y final se invierten si el puntero va a tail
 ### Detalles operativos
 - Puede haber overflow (solo si se agota la memoria del sistema)
 - Puede haber underflow (al intentar borrar o leer en una lista vacía)
@@ -164,7 +164,7 @@ lista.recorrer()  # 1, 2, 3
 Insertar al frente crea un nuevo head que apunta a la lista existente sin copiarla — la versión anterior queda intacta gracias al structural sharing (reutilización).
 Implicancias:
 - Inserción al frente O(1) compartiendo todos los nodos excepto el nuevo.
-- Útil para undo/redo, snapshots y programación funcional (**Haskell**)
+- Útil para blockchain, snapshots y programación funcional (**Haskell**)
 - Modificaciones en posiciones intermedias no pueden hacer sharing y copian O(k) nodos previos. Siendo k la posicion modificada.
 
 #### Concurrencia y sincronización
