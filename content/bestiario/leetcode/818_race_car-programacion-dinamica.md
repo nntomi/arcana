@@ -62,7 +62,7 @@ def _resolver(target: int, map: dict) -> int:
 ```
 
 ### Traza de ejemplo
-![](/attachments/bestiario/leetcode/818_race_car-programacion-dinamica/arbol-recursividad.svg)
+![](/attachments/bestiario/leetcode/arbol-recursividad.svg)
 La imagen ilustra el árbol de recursividad generado al ejecutar el algoritmo para `target = 6`.
 
 **Explicación del árbol de recursividad:**
