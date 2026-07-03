@@ -1,0 +1,13 @@
+{
+  "default": false,
+  "MD047": true,
+  "files": [
+    "content/**/*.md"
+  ],
+  "ignore": [
+    "public/**",
+    "content/attachments/**",
+    "content/.obsidian/**",
+    "quartz/**"
+  ]
+}

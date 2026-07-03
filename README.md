@@ -31,3 +31,27 @@ Este repositorio es mantenido por la cátedra de Programación Avanzada (UNLaM) 
 Si necesitás orientación sobre formato o revisión, abrí un issue o contactá a los docentes/ayudantes responsables de la materia.
 
 ¡Gracias por querer sumar! Tus PRs hacen que el recurso mejore para todos.
+
+## Linting
+
+Este repo incluye una regla básica de lint para archivos Markdown. Usamos `markdownlint-cli2` mediante `npx` para no forzar una dependencia global.
+
+- Ver los errores en `content/`:
+
+```bash
+npm run lint:md
+```
+
+- Intentar arreglar automáticamente los problemas reparables:
+
+```bash
+npm run lint:md:fix
+```
+
+Si preferís revisar solo un archivo, pasa la ruta en lugar del glob, por ejemplo:
+
+```bash
+npx -y markdownlint-cli2 "content/bestiario/greedy/la-defensa-del-muro-rose.md" --config .markdownlint.json
+```
+
+La acción de GitHub Actions `.github/workflows/lint-markdown.yml` ejecuta el linter en pushes y PRs que toquen `content/**`.
