@@ -19,8 +19,6 @@ La aplicación de la técnica se estructura en las siguientes partes:
    - **Quedarse corto y tomar envión:** Aceleramos `k-1` veces, frenando antes del objetivo. Esto implica poner reversa, y luego acelerar `i` veces en dirección contraria (0 ≤ `i` < `k-1`) y volvemos a poner reversa para apuntar al objetivo. Esto genera una nueva distancia restante y se reduce el problema a: Costo = (`k` - 1) + 1 + `i` + 1 + `resolver(nuevaDistancia)`
 3. **Memoización y solapamiento de subproblemas:** Dado que las estrategias calculan distancias absolutas restantes, el árbol de recursividad pedirá resolver las mismas distancias múltiples veces por diferentes caminos (por ejemplo, si se tiene `target = 10`, entonces `resolver(3)` puede surgir tanto pasandose y retrocediendo como quedándose corto y tomando envión). Para agilizar estos cálculos, se almacena el costo mínimo calculado para cada distancia en un [Diccionario](../../grimorio/data-structures/map.md). Antes de evaluar las transiciones para un `target` consultamos si esa distancia ya fue resuelta, retornamos el valor en tiempo `O(1)`, evitando que el árbol de decisiones crezca de forma exponencial.
 
-4. ../../attachments/bestiario/leetcode/
-
 
 ### Código
 
