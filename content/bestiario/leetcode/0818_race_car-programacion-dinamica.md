@@ -1,6 +1,7 @@
 ---
-title: 'LeetCode 818 - Race Car - Programación Dinámica (Top-Down y Bottom-up)'
-tags: ['b/leetcode']
+title: LeetCode0818 - Race Car - Programación Dinámica (Top-Down y Bottom-up)
+tags:
+  - b/leetcode
 ---
 
 ## Programación dinámica - Top-Down
@@ -245,7 +246,7 @@ Esto quiere decir que se requieren 5 pasos para llegar a `target = 6`
 Aunque ambos enfoques de DP son muy superiores a BFS, para este problema el top-down es más eficiente que el bottom-up. Esto se debe a que bottom-up calcula obligatoriamente todas las distancias desde 1 hasta el `target`. En cambio, el top-down da saltos y solo resuelve algunos subproblemas específicos que realmente se necesitan para llegar al resultado, ahorrando una cantidad importante de cálculos en `targets` grandes.
 
 ## Comparación con Búsqueda en Anchura (BFS)
-A diferencia de [BFS](./818_race_car-bfs-fuerza-bruta.md) que explora paso a paso el árbol de posibilidades teniendo en cuenta posición y velocidad, la programación dinámica reduce el problema a solo la distancia absoluta. Esto permite que se reemplace la "simulación" con saltos matemáticos directos entre posiciones de referencia. Como resultado, la técnica de programación dinámica es superior en velocidad y eficiencia, sobre todo para `targets` altos. Como dificultad, la lógica matemática que plantea el problema es más difícil de deducir que en BFS.
+A diferencia de [BFS](0818_race_car-bfs-fuerza-bruta.md) que explora paso a paso el árbol de posibilidades teniendo en cuenta posición y velocidad, la programación dinámica reduce el problema a solo la distancia absoluta. Esto permite que se reemplace la "simulación" con saltos matemáticos directos entre posiciones de referencia. Como resultado, la técnica de programación dinámica es superior en velocidad y eficiencia, sobre todo para `targets` altos. Como dificultad, la lógica matemática que plantea el problema es más difícil de deducir que en BFS.
 
 ## Referencias
 N/A

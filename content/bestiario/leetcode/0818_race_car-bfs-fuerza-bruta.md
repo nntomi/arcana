@@ -1,11 +1,10 @@
 ---
-title: 'LeetCode 818 - Race Car - BFS con Fuerza Bruta (no tan naive)'
-tags: ['b/leetcode']
+title: LeetCode0818 - Race Car - BFS con Fuerza Bruta (no tan naive)
+tags:
+  - b/leetcode
 ---
-
 ## Técnicas utilizadas
 Búsqueda en Anchura [BFS](): Exploración nivel por nivel con una [Cola](../../grimorio/data-structures/queue.md), para encontrar la ruta más corta en un espacio de estados.
-
 
 ## Idea de la solución
 El problema se modela como un grafo dirigido donde cada nodo es un estado definido por `(posición, velocidad)` y las aristas son las decisiones `A` o `R`. Como se busca la secuencia mínima de instrucciones, aplicar BFS garantiza que la primera vez que la posición actual coincida con el `target`, se encontró la solución óptima.
@@ -61,10 +60,10 @@ Resultado final: 2 operaciones (secuencia: `AA`).
 ## Complejidad
 
 ### Temporal
-`O(T^2)` en el peor de los casos acotados, donde `T` es el valor del `target`. Ante las dos decisiones (`A` y `R`) en el peor caso se toman ambas, es decir `2^N`. Se sabe que si avanzo hasta la condición de reversa, haré `log2 T` expansiones, luego el trayecto hasta el `target` desde ahí costará, a lo sumo, `log2 T`. Finalmente me queda `2^N`, donde `N = 2log2 T`. Expandiendo, se simplifica la base y el logaritmo, dejando `T^2` como peor caso.
+$O(T^2)$ en el peor de los casos acotados, donde `T` es el valor del `target`. Ante las dos decisiones (`A` y `R`) en el peor caso se toman ambas, es decir $2^N$. Se sabe que si avanzo hasta la condición de reversa, haré $\log_2{T}$ expansiones, luego el trayecto hasta el `target` desde ahí costará, a lo sumo, $\log_2{T}$. Finalmente me queda $2^N$, donde $N = 2 \times \log_2{T}$. Expandiendo, se simplifica la base y el logaritmo, dejando `T^2` como peor caso.
 
 ### Espacial
-`O(T^2)` también, ya que sabemos que habrá `T^2` estados nuevos en el peor caso. Esos estados se almacenarán en un Set de visitados.
+$O(T^2)$ también, ya que sabemos que habrá $T^2$ estados nuevos en el peor caso. Esos estados se almacenarán en un Set de visitados.
 
 ## Cuándo usar esta técnica
 
@@ -76,7 +75,7 @@ Resultado final: 2 operaciones (secuencia: `AA`).
 - Realiza cuentas innecesarias como seguir acelerando a pesar de ya haberse pasado de largo por amplia distancia.
 
 ## Comparación con Programación Dinámica
-La solución con [Programación Dinámica](./818_race_car-programacion-dinamica.md) es significativamente más ligera en espacio y tiempo. DP analiza la distancia basándose en secuencias completas de aceleraciones antes de revertir, reduciendo el problema a subproblemas de menor escala y reduciendo el uso de memoria y procesamiento a costo de ser bastante más compleja a la comprensión.
+La solución con [Programación Dinámica](0818_race_car-programacion-dinamica.md) es significativamente más ligera en espacio y tiempo. DP analiza la distancia basándose en secuencias completas de aceleraciones antes de revertir, reduciendo el problema a subproblemas de menor escala y reduciendo el uso de memoria y procesamiento a costo de ser bastante más compleja a la comprensión.
 
 ## Referencias
 N/A

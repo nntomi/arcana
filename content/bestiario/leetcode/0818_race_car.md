@@ -1,14 +1,14 @@
 ---
-title: 'LeetCode 818 - Race Car'
-tags: ['b/leetcode']
+title: LeetCode0818 - Race Car
+tags:
+  - b/leetcode
 ---
-
 ## Nombre y enunciado
 
-Tu auto empieza en la posición 0 y tiene una velocidad inicial de 1 en una recta infinita. El auto puede ejecutar dos instrucciones:
+Tu auto empieza en la posición `0` y tiene una velocidad inicial de `+1` en una recta infinita. El auto puede ejecutar dos instrucciones:
 
 - `A` (Acelerar): El auto cambia su posición tal que `posición = posición + velocidad`, y la velocidad se duplica (`velocidad * 2`).
-- `R` (Reversa): La posición no cambia. Si la velocidad es positiva, se convierte en -1. Si la velocidad es negativa, se convierte en 1. (Es decir, se cambia de sentido de manejo).
+- `R` (Reversa): La posición no cambia. Si la velocidad es positiva, se convierte en `-1`. Si la velocidad es negativa, se convierte en `1`. (Es decir, se cambia de sentido de manejo).
 
 **Problema:** Dado un entero `target`, devolver el camino de instrucciones más corto para llegar a esa posición.
 
@@ -70,5 +70,5 @@ Finalmente para buscar una solución eficiente, se debe buscar la relación de r
 
 ## Soluciones disponibles
 
-- [[Race Car - Fuerza Bruta]](./818_race_car-bfs-fuerza-bruta.md)
-- [[Race Car - Programación Dinámica]](./818_race_car-programacion-dinamica.md)
+- [[0818_race_car-bfs-fuerza-bruta]]
+- [[0818_race_car-programacion-dinamica]]
