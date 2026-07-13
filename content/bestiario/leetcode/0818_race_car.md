@@ -23,7 +23,7 @@ A primera vista, el espacio de estados parece infinito. Como la velocidad crece 
 1. Acelerar hasta pasar el objetivo, frenar y volver hacia atrás.
 2. Acelerar hasta llegar lo más cerca posible sin pasarse, frenar, retroceder para tomar impulso, volver a frenar y acelerar.
 
-La clave es notar que cualquier posición se alcanza combinando saltos de tamaño $2^k - 1$. Esto transforma el problema de un espacio infinito en un árbol de decisiones acotado.
+La clave es notar que cualquier posición se alcanza combinando saltos de tamaño $2^k - 1$ para acercarnos, frenar, retroceder de ser necesario y repetir el proceso. Esto transforma el problema de un espacio infinito en un árbol de decisiones acotado.
 
 ---
 
@@ -62,7 +62,7 @@ Resultado: Llegamos a la posición 6 en 5 pasos. La longitud es 5.
 
 La primera aproximación es fuerza bruta, donde se prueban las opciones (`A` y `R`) siempre. A esto le podemos agregar una optimización como solo meter reversas únicamente cuando tiene sentido, como cuando estamos por pasarnos del `target` o nos pasamos del `target`.
 
-Luego podés descubrir que hay ciertas condiciones que delimitan la búsqueda como, la posición nunca va a ser menor a 0 y la posición nunca va a ser más que el doble del target: `Pos > 0`, `Pos < target * 2`.
+Luego podés descubrir que hay ciertas condiciones que delimitan la búsqueda como, la posición nunca va a ser menor a 0 y la posición nunca va a ser más que el doble del target: `Pos >= 0`, `Pos < target * 2`.
 
 Finalmente para buscar una solución eficiente, se debe buscar la relación de recurrencia y dejar de pensar el problema como una simulación del movimiento del auto en un grafo infinito.
 
