@@ -17,7 +17,7 @@ La aplicación de la técnica se estructura en las siguientes partes:
 1. **Definición de la función recursiva y el caso base:** Definimos la función recursiva `resolver(target)` que se encarga de obtener la cantidad mínima de instrucciones para recorrer una distancia exacta `target`. Sabemos por las reglas del problema que si sólo aceleramos, nuestras posiciones forman la serie de hitos $2^k - 1$ (1, 3, 7, 15, 31...). Nuestro caso base ocurre cuando la distancia `target` es exactamente igual a una de estas posiciones de referencia (`target` = $2^k - 1$). En este caso, la respuesta es `k` aceleraciones, sin tener que usar reversa.
 2. **Transiciones (Descomposición del problema):** Si `target` no es una de las posiciones representadas por el caso base, entonces estará entre uno contenido entre dos valores: $2^{k-1} - 1 < t < 2^k - 1$. Desde estos puntos, se procede a evaluar todas las decisiones óptimas posibles para reducir la distancia. Para ello, se utilizan dos estrategias:
    - **Pasarse y retroceder:** Aceleramos `k` veces hasta pasarnos del objetivo, ponemos reversa y nos queda una nueva distancia absoluta por recorrer hacia atrás. Se reduce el problema a Costo = `k` + 1 + `resolver`($2^k - 1$ - `target`)
-   - **Quedarse corto y tomar envión:** Aceleramos `k-1` veces, frenando antes del objetivo. Esto implica poner reversa, y luego acelerar `i` veces en dirección contraria (0 ≤ `i` < `k-1`) y volvemos a poner reversa para apuntar al objetivo. Esto genera una nueva distancia restante y se reduce el problema a: Costo = (`k` - 1) + 1 + `i` + 1 + `resolver(nuevaDistancia)`
+   - **Quedarse corto y tomar envión:** Aceleramos `k-1` veces, frenando antes del objetivo. Esto implica poner reversa, y luego acelerar `i` veces en dirección contraria $(0 ≤ i < {k-1})$ y volvemos a poner reversa para apuntar al objetivo. Esto genera una nueva distancia restante y se reduce el problema a: Costo = (`k` - 1) + 1 + `i` + 1 + `resolver(nuevaDistancia)`
 3. **Memoización y solapamiento de subproblemas:** Dado que las estrategias calculan distancias absolutas restantes, el árbol de recursividad pedirá resolver las mismas distancias múltiples veces por diferentes caminos (por ejemplo, si se tiene `target = 10`, entonces `resolver(3)` puede surgir tanto pasandose y retrocediendo como quedándose corto y tomando envión). Para agilizar estos cálculos, se almacena el costo mínimo calculado para cada distancia en un [Diccionario](../../grimorio/data-structures/map.md). Antes de evaluar las transiciones para un `target` consultamos si esa distancia ya fue resuelta, retornamos el valor en tiempo `O(1)`, evitando que el árbol de decisiones crezca de forma exponencial.
 
 
@@ -96,10 +96,10 @@ El algoritmo se queda con el valor mínimo, guarda `map[6] = 5` y retorna 5, que
 ### Complejidad
 
 #### Temporal
-`O(T log T)` donde `T` es el valor de `target`. Gracias a la memoización, cada estado (es decir, cada valor distinto de `target` que se resuelve) se calcula una única vez. Para resolver un estado, el algoritmo ejecuta un bucle de hasta `log T` iteraciones, correspondiente a los distintos casos que surgen de quedarse corto y tomar envión. En el peor caso, pueden generarse hasta `T(target)` estados distintos, por lo que la complejidad temporal total es `O(T log T)`
+$O(T\log{T})$ donde `T` es el valor de `target`. Gracias a la memoización, cada estado (es decir, cada valor distinto de `target` que se resuelve) se calcula una única vez. Para resolver un estado, el algoritmo ejecuta un bucle de hasta $\log{T}$ iteraciones, correspondiente a los distintos casos que surgen de quedarse corto y tomar envión. En el peor caso, pueden generarse hasta `T(target)` estados distintos, por lo que la complejidad temporal total es $O(T\log{T})$
 
 #### Espacial
-`O(T)` está dado por la pila de llamadas recursivas y el tamaño del `map` para guardar los pasos. Dado que crece hasta almacenar todos los estados únicos visitados, la complejidad espacial dominante es la del `map`.
+$O(T)$ está dado por la pila de llamadas recursivas y el tamaño del `map` para guardar los pasos. Dado que crece hasta almacenar todos los estados únicos visitados, la complejidad espacial dominante es la del `map`.
 
 ### Cuando usar esta técnica
 
@@ -122,7 +122,7 @@ La aplicación de la técnica se estructura en las siguientes partes:
 - **Bucle principal:** Mediante un bucle que recorre `t` desde 1 hasta `target`, evaluamos las dos estrategias posibles para cada casillero:
   - Pasarse y retroceder: Aceleramos `k` veces, ponemos reversa y consultamos el arreglo en la distancia restante: `dp[t] = k + 1 + dp[dist2 - t]`.
   - Quedarse corto y tomar envión: Aceleramos `k-1` veces, ponemos reversa, retrocedemos acumulando `i` aceleraciones y volvemos a poner reversa. El costo se calcula consultando el arreglo en la distancia restante: `dp[t] = min(dp[t], (k - 1) + 1 + i + 1 + dp[targetMin])`.
-- **Como resuelve bottom-up:** El bucle garantiza el orden óptimo para resolver cualquier distancia `t` ya que las distancias restantes consultadas en las estrategias (tanto pasandote como quedandote corto) siempre serán menores que `t`. Como el bucle avanza de menor a mayor, esas posiciones ya habrán sido resueltas y guardadas en el vector `dp`, permitiendo acceder a los valores en tiempo `O(1)`.
+- **Como resuelve bottom-up:** El bucle garantiza el orden óptimo para resolver cualquier distancia `t` ya que las distancias restantes consultadas en las estrategias (tanto pasandote como quedandote corto) siempre serán menores que `t`. Como el bucle avanza de menor a mayor, esas posiciones ya habrán sido resueltas y guardadas en el vector `dp`, permitiendo acceder a los valores en tiempo $O(1)$.
 
 ### Código
 
@@ -225,10 +225,10 @@ Esto quiere decir que se requieren 5 pasos para llegar a `target = 6`
 ### Complejidad
 
 #### Temporal
-`O(T log T)`, donde `T` es el valor de `target`. El algoritmo recorre de forma iterativa todos los valores desde 1 hasta `t` para completar el vector. Para cada estado `T`, ejecuta un bucle de hasta `log T` iteraciones, correspondiente a los distintos casos en los que el auto se queda corto y toma envión. Cómo se procesan `T` estados y cada uno requiere `O(log T)` operaciones en el peor caso, la complejidad temporal total es `O(T log T)`.
+$O(T\log{T})$, donde `T` es el valor de `target`. El algoritmo recorre de forma iterativa todos los valores desde 1 hasta `T` para completar el vector. Para cada estado `T`, ejecuta un bucle de hasta $\log{T}$ iteraciones, correspondiente a los distintos casos en los que el auto se queda corto y toma envión. Cómo se procesan `T` estados y cada uno requiere $\log{T}$ operaciones en el peor caso, la complejidad temporal total es $O(T\log{T})$.
 
 #### Espacial
-`O(T)`. El algoritmo utiliza un vector `dp` de tamaño `t + 1`, donde almacena la cantidad mínima de instrucciones para llegar a cada posición desde 0 hasta `T`. No utiliza recursividad, por lo que no existe consumo adicional por pila de llamadas. La complejidad espacial está dominada por el tamaño del vector, resultando en `O(T)`.
+$O(T)$. El algoritmo utiliza un vector `dp` de tamaño `t + 1`, donde almacena la cantidad mínima de instrucciones para llegar a cada posición desde 0 hasta `T`. No utiliza recursividad, por lo que no existe consumo adicional por pila de llamadas. La complejidad espacial está dominada por el tamaño del vector, resultando en $O(T)$.
 
 ### Cuando usar esta técnica
 
@@ -243,10 +243,10 @@ Esto quiere decir que se requieren 5 pasos para llegar a `target = 6`
 ---
 
 ## Diferencia entre los enfoques de programación dinámica
-Aunque ambos enfoques de DP son muy superiores a BFS, para este problema el top-down es más eficiente que el bottom-up. Esto se debe a que bottom-up calcula obligatoriamente todas las distancias desde 1 hasta el `target`. En cambio, el top-down da saltos y solo resuelve algunos subproblemas específicos que realmente se necesitan para llegar al resultado, ahorrando una cantidad importante de cálculos en `targets` grandes.
+Aunque ambos enfoques de DP son superiores a BFS en promedio, en el peor caso todos son $O(T log T)$.
 
 ## Comparación con Búsqueda en Anchura (BFS)
-A diferencia de [BFS](0818_race_car-bfs-fuerza-bruta.md) que explora paso a paso el árbol de posibilidades teniendo en cuenta posición y velocidad, la programación dinámica reduce el problema a solo la distancia absoluta. Esto permite que se reemplace la "simulación" con saltos matemáticos directos entre posiciones de referencia. Como resultado, la técnica de programación dinámica es superior en velocidad y eficiencia, sobre todo para `targets` altos. Como dificultad, la lógica matemática que plantea el problema es más difícil de deducir que en BFS.
+A diferencia de [BFS](0818_race_car-bfs-fuerza-bruta.md) que explora paso a paso el árbol de posibilidades teniendo en cuenta posición y velocidad, la programación dinámica reduce el problema a solo la distancia absoluta. Esto permite que se reemplace la "simulación" con saltos matemáticos directos entre posiciones de referencia. Como resultado, la técnica de programación dinámica es superior en espacio ($O(T)$ frente a $O(T\log{T})$ de BFS) y en promedio mejor en velocidad. Como dificultad, la lógica matemática que plantea el problema es más difícil de deducir que en BFS.
 
 ## Referencias
-N/A
+[Ejemplo Leetcode 494 explicado](https://www.youtube.com/watch?v=g0npyaQtAQM&list=PLot-Xpze53lcvx_tjrr_m2lgD2NsRHlNO)
