@@ -13,33 +13,31 @@ Para que la búsqueda por fuerza bruta sea (masomenos) viable, se aplican dos op
 
 - **Memorización de estados visitados:** Se descartan los estados `(posición, velocidad)` que ya fueron procesados, guardados en un [Set](../../grimorio/data-structures/set.md).
 - **Poda direccional:** Solo se aplica la reversa (`R`) si el próximo movimiento `A` nos pasa de largo del objetivo. Es decir, si nos adelantamos `target` yendo hacia adelante (velocidad positiva), o si nos alejamos más yendo hacia atrás (velocidad negativa).
+- **Poda exceso:** En el caso de que la posición exceda o iguale el doble del target $(pos >= 2*Target)$ , se sabe que no va a ser una solución óptima, entonces lo cortamos.
+- **Poda negativa:** También se comprobó que en una solución óptima, la posición jamás será negativa. Sabiendo esto se agrega un chequeo de $pos >= 0$ como condición de poda.
 
 ## Código
 
 ```python
 from collections import deque
-
 def racecar(target):
     cola = deque([(0, 0, 1)])
     visitados = set()
-
     while cola:
         ops, pos, speed = cola.popleft()
-
         if pos == target:
             return ops
-
         estado = (pos, speed)
         if estado in visitados:
             continue
         visitados.add(estado)
-
-        cola.append((ops + 1, pos + speed, speed * 2))
-
+        new_pos = pos + speed
+        if new_pos >= 0 and new_pos < target * 2:
+            cola.append((ops + 1, new_pos, speed * 2))
         if (pos + speed > target and speed > 0) or (pos + speed < target and speed < 0):
             new_speed = -1 if speed > 0 else 1
-            cola.append((ops + 1, pos, new_speed))
-
+            if pos >= 0 and pos < target * 2:
+                cola.append((ops + 1, pos, new_speed))
     return 0
 ```
 
@@ -60,10 +58,10 @@ Resultado final: 2 operaciones (secuencia: `AA`).
 ## Complejidad
 
 ### Temporal
-$O(T^2)$ en el peor de los casos acotados, donde `T` es el valor del `target`. Ante las dos decisiones (`A` y `R`) en el peor caso se toman ambas, es decir $2^N$. Se sabe que si avanzo hasta la condición de reversa, haré $\log_2{T}$ expansiones, luego el trayecto hasta el `target` desde ahí costará, a lo sumo, $\log_2{T}$. Finalmente me queda $2^N$, donde $N = 2 \times \log_2{T}$. Expandiendo, se simplifica la base y el logaritmo, dejando `T^2` como peor caso.
+La complejidad es $O(T\log{T})$, esto es debido a que, con las condiciones de poda tenemos un espacio de $[0, 2T]$ de busqueda, es decir T, y sabemos que `speed` se mueve logaritmicamente $(\log_2)$ positiva y negativamente $(2 \times \log_2{T})$. Dejando una cantidad de estados *unicos* de $O(T\log{T})$
 
 ### Espacial
-$O(T^2)$ también, ya que sabemos que habrá $T^2$ estados nuevos en el peor caso. Esos estados se almacenarán en un Set de visitados.
+$O(T\log{T})$ también, ya que sabemos que habrá $T\log{T}$ estados nuevos en el peor caso. Esos estados se almacenarán en un Set de visitados.
 
 ## Cuándo usar esta técnica
 
@@ -75,7 +73,7 @@ $O(T^2)$ también, ya que sabemos que habrá $T^2$ estados nuevos en el peor cas
 - Realiza cuentas innecesarias como seguir acelerando a pesar de ya haberse pasado de largo por amplia distancia.
 
 ## Comparación con Programación Dinámica
-La solución con [Programación Dinámica](0818_race_car-programacion-dinamica.md) es significativamente más ligera en espacio y tiempo. DP analiza la distancia basándose en secuencias completas de aceleraciones antes de revertir, reduciendo el problema a subproblemas de menor escala y reduciendo el uso de memoria y procesamiento a costo de ser bastante más compleja a la comprensión.
+La solución con [Programación Dinámica](0818_race_car-programacion-dinamica.md) es más ligera en espacio ($O(T)$ frente a $O(T\log{T})$ de BFS) y también en tiempo (en promedio), aunque en el peor caso sean iguales. DP analiza la distancia basándose en secuencias completas de aceleraciones antes de revertir, reduciendo el problema a subproblemas de menor escala y reduciendo el uso de memoria y procesamiento, en promedio, a costo de ser bastante más compleja a la comprensión.
 
 ## Referencias
-N/A
+[Explicación de posición negativa](https://stackoverflow.com/questions/76770058/proof-of-dynamic-programming-solution-for-leetcode-818-racecar)
