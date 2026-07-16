@@ -21,7 +21,6 @@ Una lista simplemente enlazada funciona como una cadena: cada elemento está lig
 
 ### Representación
 ![](../../attachments/grimorio/data-structures/lista-enlazada.svg)
-![](lista%20enlazada.svg)
 
 La imagen muestra una lista de tres nodos enlazados. Cada nodo está dividido en dos secciones: la parte izquierda contiene un valor o dato, y la parte derecha contiene un puntero que apunta al siguiente nodo. El último nodo tiene su puntero apuntando a null, indicando el final de la lista. Un puntero externo llamado head señala al primer nodo desde la izquierda, marcando la entrada a la estructura.
 
