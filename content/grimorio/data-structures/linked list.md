@@ -51,7 +51,7 @@ La imagen muestra una lista de tres nodos enlazados. Cada nodo está dividido en
 - La función  `insertarOrdenado(x)` asume que la lista se encuentra ordenada.
 
 ### Casos a considerar
-- Cuando se borra en una lista con un unico nodo, se borra donde se encuentra el `head`. Se debe modificarlo a lo que corresponda (otro nodo o `null`).
+- Cuando se borra un elemento de una lista con un unico nodo, se borra donde se encuentra el `head`. Se debe modificar el `head` a lo que corresponda (otro nodo o `null`).
 - Si hay varios nodos con el mismo dato, tanto `buscar(x)` como `eliminar(x)` solo actuan sobre la primera aparición. Si se desea eliminar todas las ocurrencias, hay que iterar explícitamente en vez de retornar en la primera coincidencia
 
 ## 3. Implementación
